@@ -17,15 +17,20 @@ let direction = true;
 
 // Draw function
 function draw(e) {
-    e.preventDefault();
     if (!isDrawing) return; // stop the function when not mouse click down
     document.querySelector('h1').style.display = "none";
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-    [lastX, lastY] = [e.offsetX, e.offsetY];
+    if (e.offsetX) {
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    } else if (e.touches) {
+        ctx.lineTo(e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop);
+        ctx.stroke();
+        [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
+    }
     hue++;
     if (hue >= 360) {
         hue = 0;
@@ -51,9 +56,10 @@ canvas.addEventListener('mouseout', () => isDrawing = false);
 
 // Event listeners for touch
 canvas.addEventListener('touchmove', draw);
-canvas.addEventListener('touchstart', (e) => { 
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault(); 
     isDrawing = true;
-    [lastX, lastY] = [e.offsetX, e.offsetY];  
+    [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];  
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
 canvas.addEventListener('touchleave', () => isDrawing = false);
