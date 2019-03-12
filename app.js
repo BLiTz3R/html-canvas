@@ -17,6 +17,7 @@ let direction = true;
 
 // Draw function
 function draw(e) {
+    e.preventDefault();
     if (!isDrawing) return; // stop the function when not mouse click down
     document.querySelector('h1').style.display = "none";
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
