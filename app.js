@@ -26,11 +26,12 @@ function draw(e) {
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
-    } else if (e.touches) {
-        ctx.lineTo(e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop);
-        ctx.stroke();
-        [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
-    }
+    } 
+    // else if (e.touches) {
+    //     ctx.lineTo(e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop);
+    //     ctx.stroke();
+    //     [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
+    // }
     hue++;
     if (hue >= 360) {
         hue = 0;
