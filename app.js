@@ -14,8 +14,6 @@ let lastX = 0;
 let lastY = 0;
 let hue = 0;
 let direction = true;
-// let touchX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-// let touchY = e.touches[0].pageY - e.touches[0].target.offsetTop;
 
 // Draw function
 function draw(e) {
