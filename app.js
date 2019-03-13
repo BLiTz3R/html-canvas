@@ -22,6 +22,7 @@ function draw(e) {
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
+
     if (e.offsetX) {
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
@@ -31,6 +32,7 @@ function draw(e) {
         ctx.stroke();
         [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
     }
+    
     hue++;
     if (hue >= 360) {
         hue = 0;
