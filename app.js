@@ -14,8 +14,8 @@ let lastX = 0;
 let lastY = 0;
 let hue = 0;
 let direction = true;
-let touchX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-let touchY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+// let touchX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+// let touchY = e.touches[0].pageY - e.touches[0].target.offsetTop;
 
 // Draw function
 function draw(e) {
@@ -29,9 +29,9 @@ function draw(e) {
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
     } else {
-        ctx.lineTo(touchX, touchY);
+        ctx.lineTo(e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop);
         ctx.stroke();
-        [lastX, lastY] = [touchX, touchY];
+        [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
     }
     hue++;
     if (hue >= 360) {
@@ -61,7 +61,7 @@ canvas.addEventListener('touchmove', draw);
 canvas.addEventListener('touchstart', (e) => {
     e.preventDefault(); 
     isDrawing = true;
-    [lastX, lastY] = [touchX, touchY];  
+    [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];  
 });
 canvas.addEventListener('touchend', () => isDrawing = false);
 canvas.addEventListener('touchleave', () => isDrawing = false);
