@@ -22,17 +22,17 @@ function draw(e) {
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-
-    if (e.offsetX || e.offsetY) {
+    if (e.touches) {
+        let touchX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+        let touchY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+        ctx.lineTo(touchX, touchY);
+        ctx.stroke();
+        [lastX, lastY] = [touchX, touchY];
+    } else {
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
-    } else {
-        ctx.lineTo(e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop);
-        ctx.stroke();
-        [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];
     }
-    
     hue++;
     if (hue >= 360) {
         hue = 0;
@@ -57,11 +57,11 @@ canvas.addEventListener('mouseup', () => isDrawing = false);
 canvas.addEventListener('mouseout', () => isDrawing = false);
 
 // Event listeners for touch
-canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('touchmove', draw, false);
 canvas.addEventListener('touchstart', (e) => {
     e.preventDefault(); 
     isDrawing = true;
     [lastX, lastY] = [e.touches[0].pageX - e.touches[0].target.offsetLeft, e.touches[0].pageY - e.touches[0].target.offsetTop];  
-});
+}, false);
 canvas.addEventListener('touchend', () => isDrawing = false);
 canvas.addEventListener('touchleave', () => isDrawing = false);
