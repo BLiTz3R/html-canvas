@@ -24,14 +24,14 @@ function draw(e) {
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    if (touchX) {
-        ctx.lineTo(touchX, touchY);
-        ctx.stroke();
-        [lastX, lastY] = [touchX, touchY];
-    } else {
+    if (e.offsetX) {
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
+    } else {
+        ctx.lineTo(touchX, touchY);
+        ctx.stroke();
+        [lastX, lastY] = [touchX, touchY];
     }
     hue++;
     if (hue >= 360) {
