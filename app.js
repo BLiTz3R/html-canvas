@@ -22,13 +22,13 @@ function draw(e) {
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    if (e.touches) {
+    if (e.touches) { // if touch, get touch coordinates
         let touchX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
         let touchY = e.touches[0].pageY - e.touches[0].target.offsetTop;
         ctx.lineTo(touchX, touchY);
         ctx.stroke();
         [lastX, lastY] = [touchX, touchY];
-    } else {
+    } else { // else get mouse coords
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
